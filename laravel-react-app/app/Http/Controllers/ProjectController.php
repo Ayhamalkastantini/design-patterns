@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckRoleTrait;
 use App\Models\Project;
 use App\Repositories\Repository;
 use Carbon\Carbon;
@@ -11,6 +12,8 @@ class ProjectController extends Controller
 {
     // space that we can use the repository from
     protected $model;
+    use CheckRoleTrait;
+
 
     public function __construct(Project $project)
     {
@@ -22,8 +25,9 @@ class ProjectController extends Controller
     {
         $ProjectList = $this->model->with('customer')->orderBy('deadline', 'desc')->get();
 
-        return view('projects.list', compact('ProjectList'));
-
+        if($this->checkRole('Admin')){
+            return view('projects.list', compact('ProjectList'));
+        }
     }
 
     public function insert()

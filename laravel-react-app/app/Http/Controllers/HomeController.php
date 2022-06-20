@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckRoleTrait;
 use App\Models\Customer;
 use App\Models\Project;
 use App\Models\Role;
@@ -17,6 +18,7 @@ class HomeController extends Controller
     protected $role;
     protected $project;
     protected $customer;
+
 
     /**
      * Create a new controller instance.
@@ -40,16 +42,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        dump($this->user->with('role')->where('users.role_id','3')->first());
-//        if(3 == $this->user->with('role')->where('users.role_id','3')->first()){
-            $customers = $this->customer->with('users')->getModel()->orderBy('created_at', 'desc')->get();
-            $projects = $this->project->with('customer')->getModel()->orderBy('created_at', 'desc')->get();
-            $users = $this->user->getModel()->orderBy('created_at', 'desc')->get();
-            return view::make('home')
-                ->with('users', $users)
-                ->with('projects' , $projects)
-                ->with('customers' , $customers);
-//        }
+        return view::make('home');
     }
     public function projects()
     {

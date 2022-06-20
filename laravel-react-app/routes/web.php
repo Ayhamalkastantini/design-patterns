@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,16 @@ Route::get('tasks/edit/{id}', [TaskController::class, 'edit'])->name('tasks.edit
 Route::put('tasks/edit/{id}', [TaskController::class, 'update'])->name('update');
 Route::delete('tasks/show/{id}', [TaskController::class, 'destroy'])->name('destroy');
 
+
+// User routs
+Route::get('/users', [UserController::class, 'index'])->name('users');
+Route::get('users/add', [UserController::class, 'insert']);
+Route::post('users', [UserController::class, 'store']);
+Route::get('users/show/{id}', [UserController::class, 'show'])->name('users.show');
+
+Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+Route::put('users/edit/{id}', [UserController::class, 'update'])->name('update');
+Route::delete('users/show/{id}', [UserController::class, 'destroy'])->name('destroy');
 
 
 Route::get('/customer', [CustomerController::class, 'index'])->name('customer');

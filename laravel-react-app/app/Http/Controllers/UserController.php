@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\Models\User;
+use App\Models\Role;
+use App\Repositories\Repository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,9 +12,19 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    public function __construct()
+    protected $model;
+
+    public function __construct(User $user)
     {
-//         $this->roleName = $this->getRoleName('');
+        // set the model
+        $this->model = new Repository($user);
+    }
+
+    public function index()
+    {
+        $users = $this->model->with('users')->getModel()->orderBy('created_at', 'desc')->get();
+
+        return view('users.list', compact('users'));
     }
 
     public function view(){
@@ -32,15 +43,6 @@ class UserController extends Controller
         return view('user');
     }
 
-    public function insert(Request $request){
-        $name = $request->input('name');
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $data=array('name'=>$name,"email"=>$email,"password"=>$password);
-        DB::table('users')->insert($data);
-        echo "Record inserted successfully.<br/>";
-        echo '<a href = "/insert">Click Here</a> to go back.';
-    }
     private function getRoleName(Role $roleName){
         DB::table('users')
             ->select('*')

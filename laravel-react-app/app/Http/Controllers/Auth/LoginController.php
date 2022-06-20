@@ -46,9 +46,6 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
         if (auth()->attempt(array('email'=>$input['email'],'password'=> $input['password']))){
-            if (auth()->user()->is_admin == 3){
-                return redirect()->route('operator');
-            }
             return redirect('/');
         }
         return redirect()->route('login')->with('error', 'Input proper email or password.');

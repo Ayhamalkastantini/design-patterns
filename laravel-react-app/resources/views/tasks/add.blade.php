@@ -48,7 +48,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Deadline</label>
-                        <input type="datetime-local" id="deadline" name="deadline" class="form-control" required="">
+                        <input type="date" id="deadline" name="deadline" class="form-control" required="">
                     </div>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </form>

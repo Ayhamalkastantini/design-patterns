@@ -29,7 +29,6 @@ class TaskController extends Controller
             ->join('projects','tasks.project_id', '=','projects.id')
             ->get();
 
-        dump($tasks);
         return view('tasks.list', compact('tasks'));
     }
     public function insert()

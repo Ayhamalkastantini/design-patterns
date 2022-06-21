@@ -43,8 +43,12 @@
                         <input type="text" id="title" name="community" class="form-control" required="">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">status</label>
-                        <input type="text" id="title" name="status" class="form-control" required="">
+                        <label for="exampleInputEmail1">Status</label>
+                        <select class="customers form-control full-width" id="status" name="status" required="">
+                            <option value="To do">To do</option>
+                            <option value="In progress">In progress</option>
+                            <option value="Done">Done</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Deadline</label>

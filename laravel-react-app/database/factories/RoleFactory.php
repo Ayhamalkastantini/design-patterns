@@ -19,7 +19,7 @@ class RoleFactory extends Factory
         $this->counter = $this->counter -1;
         return [
 //            'name' => $this->faker->randomElement(Role::ROLE_NAME)
-            'name' => Role::ROLE_NAME[$this->counter],
+            'role_name' => Role::ROLE_NAME[$this->counter],
         ];
     }
 }

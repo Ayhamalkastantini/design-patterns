@@ -24,10 +24,8 @@ class ProjectController extends Controller
     public function index()
     {
         $ProjectList = $this->model->with('customer')->orderBy('deadline', 'desc')->get();
+        return view('projects.list', compact('ProjectList'));
 
-        if($this->checkRole('Admin')){
-            return view('projects.list', compact('ProjectList'));
-        }
     }
 
     public function insert()
@@ -35,16 +33,7 @@ class ProjectController extends Controller
         return view('projects/add');
     }
 
-    public function indexObserver()
-    {
-        $project = Project::create([
-            'title' => 'Platinum 1',
-            'description' => '1010',
-            'status' => '1010',
-            'company_name' => '1010',
-            'deadline' => Carbon::now(),
-        ]);
-    }
+
     public function store(Request $request)
     {
         $this->model->create($request->all());

@@ -27,7 +27,7 @@ class UserController extends Controller
         return view('users.list', compact('users'));
     }
 
-    public function view(){
+    public function show(){
         $users = DB::table('users')
             ->select('*')
             ->from('users')
@@ -36,18 +36,29 @@ class UserController extends Controller
     }
 
     public function insert(){
-        $urlData = DB::table('users')
-            ->select('*')
-            ->from('users')
-            ->get();;
-        return view('user');
+        $userRole = $this->model->with('role')
+            ->select('users.*','roles.*')
+            ->join('roles','roles.id','=','users.role_id')
+            ->get();
+        return view('users.add', compact('userRole'));
     }
 
+    public function store(Request $request)
+    {
+        $this->model->create($request->all());
+
+        return redirect()->route('users')->with('status', 'user added');
+    }
     private function getRoleName(Role $roleName){
         DB::table('users')
             ->select('*')
             ->join('roles', 'roles.id', '=', 'users.id')
             ->where('roles.role_name', $roleName)
             ->get();
+    }
+
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect('/login');
     }
 }

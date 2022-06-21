@@ -58,6 +58,17 @@ Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit
 Route::put('users/edit/{id}', [UserController::class, 'update'])->name('update');
 Route::delete('users/show/{id}', [UserController::class, 'destroy'])->name('destroy');
 
+// customer routs
+Route::get('/customers', [CustomerController::class, 'index'])->name('customers');
+Route::get('customers/add', [CustomerController::class, 'insert']);
+Route::post('customers', [CustomerController::class, 'store']);
+Route::get('customers/show/{id}', [CustomerController::class, 'show'])->name('customers.show');
+
+Route::get('customers/edit/{id}', [CustomerController::class, 'edit'])->name('customers.edit');
+Route::put('customers/edit/{id}', [CustomerController::class, 'update'])->name('update');
+Route::delete('customers/show/{id}', [CustomerController::class, 'destroy'])->name('destroy');
+
+
 
 Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
 

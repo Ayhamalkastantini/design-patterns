@@ -74,16 +74,11 @@ class ProjectController extends Controller
     }
     public function destroy($id)
     {
-<<<<<<< HEAD
         if($this->checkRole('Admin')){
-            return $this->model->delete($id);
+             $this->model->delete($id);
+             return redirect('projects');
         }else{
             return $this->index();
         }
-
-=======
-        $this->model->delete($id);
-        return redirect('projects');
->>>>>>> master
     }
 }

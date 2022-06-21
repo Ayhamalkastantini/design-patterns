@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\User;
 use App\Models\Role;
 use App\Repositories\Repository;
@@ -48,6 +49,12 @@ class UserController extends Controller
         $this->model->create($request->all());
 
         return redirect()->route('users')->with('status', 'user added');
+    }
+    public function edit($id)
+    {
+        $users = User::find($id);
+
+        return view('users.edit', compact('users'))->with('message', 'User updated');
     }
     private function getRoleName(Role $roleName){
         DB::table('users')

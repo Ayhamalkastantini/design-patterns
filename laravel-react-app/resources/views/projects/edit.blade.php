@@ -27,7 +27,11 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Status</label>
-                            <input type="text" id="status" name="status" class="form-control" value="{{$projects->status}}" required="">
+                            <select class="customers form-control full-width" id="status" name="status" required="">
+                                <option value="To do" >To do</option>
+                                <option value="In progress">In progress</option>
+                                <option value="Done">Done</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>

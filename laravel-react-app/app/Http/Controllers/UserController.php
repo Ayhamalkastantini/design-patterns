@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckRoleTrait;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\Role;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     protected $model;
+    use CheckRoleTrait;
 
     public function __construct(User $user)
     {
@@ -25,21 +27,36 @@ class UserController extends Controller
     {
         $users = $this->model->with('users')->getModel()->orderBy('created_at', 'desc')->get();
 
-        return view('users.list', compact('users'));
+        if($this->checkRole('Admin')){
+            return view('users.list', compact('users'));
+        }else{
+            return redirect('/');
+        }
     }
 
     public function show($id)
     {
         $users = $this->model->show($id);
-        return view('users.show', compact('users'));
+
+        if($this->checkRole('Admin')){
+            return view('users.show', compact('users'));
+        }else{
+            return redirect('/');
+        }
     }
 
     public function insert(){
-        $userRole = $this->model->with('role')
-            ->select('users.*','roles.*')
-            ->join('roles','roles.id','=','users.role_id')
-            ->get();
-        return view('users.add', compact('userRole'));
+
+        if($this->checkRole('Admin')){
+            $userRole = $this->model->with('role')
+                ->select('users.*','roles.*')
+                ->join('roles','roles.id','=','users.role_id')
+                ->get();
+            return view('users.add', compact('userRole'));
+        }else{
+            return redirect('/');
+        }
+
     }
 
     public function store(Request $request)
@@ -47,24 +64,27 @@ class UserController extends Controller
         $this->model->create($request->all());
 
         return redirect()->route('users')->with('status', 'user added');
+
     }
     public function edit($id)
     {
         $users = User::find($id);
 
-        return view('users.edit', compact('users'))->with('message', 'User updated');
+        if($this->checkRole('Admin')){
+            return view('users.edit', compact('users'))->with('message', 'User updated');
+        }else{
+            return redirect('/');
+        }
     }
-    private function getRoleName(Role $roleName){
-        DB::table('users')
-            ->select('*')
-            ->join('roles', 'roles.id', '=', 'users.id')
-            ->where('roles.role_name', $roleName)
-            ->get();
-    }
+
     public function destroy($id)
     {
-        $this->model->delete($id);
-        return redirect()->route('users')->with('status', 'user deleted');
+        if($this->checkRole('Admin')){
+            $this->model->delete($id);
+            return redirect()->route('users')->with('status', 'user deleted');
+        }else{
+            return redirect('/');
+        }
 
     }
     public function logout(Request $request) {

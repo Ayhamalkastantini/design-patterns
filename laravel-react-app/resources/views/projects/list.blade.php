@@ -31,8 +31,10 @@
                 <td >{{$project->company_name}}</td>
             @endif
             <td >
+                @if($roleName == 'Admin')
                 <a href="{{ route('projects.show',[$project->id]) }}" class="btn btn-success w-100 text-light ">Show</a>
                 <a href="{{ route('projects.edit',[$project->id]) }}" class='btn btn-warning w-100 mb-2 mt-2 text-light' >Edit</a>
+                @endif
             </td>
         </tr>
         @endforeach

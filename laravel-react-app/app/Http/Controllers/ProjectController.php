@@ -24,7 +24,9 @@ class ProjectController extends Controller
     public function index()
     {
         $ProjectList = $this->model->with('customer')->orderBy('deadline', 'desc')->get();
-        return view('projects.list', compact('ProjectList'));
+        $roleName = $this->getRole();
+
+        return view('projects.list', compact('ProjectList', 'roleName'));
 
     }
 
@@ -48,14 +50,23 @@ class ProjectController extends Controller
     public function show($id)
     {
         $projects = $this->model->show($id);
-        return view('projects.show', compact('projects'));
+        if($this->checkRole('Admin')){
+            return view('projects.show', compact('projects'));
+        }else{
+            return $this->index();
+        }
     }
     public function edit($id)
     {
         $projects = Project::find($id);
 
-        return view('projects.edit', compact('projects'));
+        if($this->checkRole('Admin')){
+            return view('projects.edit', compact('projects'));
+        }else{
+            return $this->index();
+        }
     }
+
     public function update(Request $request, $id)
     {
         $this->model->update($request->all(), $id);
@@ -63,6 +74,11 @@ class ProjectController extends Controller
     }
     public function destroy($id)
     {
-        return $this->model->delete($id);
+        if($this->checkRole('Admin')){
+            return $this->model->delete($id);
+        }else{
+            return $this->index();
+        }
+
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 trait CheckRoleTrait {
     use AuthenticatesUsers;
 
-    public function checkRole(string $roleName): bool
+    public static function checkRole(string $roleName): bool
     {
         // Get user role id from Auth
         $userRoleId = auth()->user()->role_id;
@@ -18,7 +18,7 @@ trait CheckRoleTrait {
         // Get all roles
         $roleModel = new Role();
         $roleRepository = new Repository($roleModel);
-        $roleId = $roleRepository->all()->where('name','=',$roleName)->first()->id;
+        $roleId = $roleRepository->all()->where('role_name','=',$roleName)->first()->id;
 
         if($roleId == $userRoleId){
             return true;
@@ -26,5 +26,16 @@ trait CheckRoleTrait {
         return false;
     }
 
+    public static function getRole(): string
+    {
+        // Get user role id from Auth
+        $userRoleId = auth()->user()->role_id;
 
+        // Get all roles
+        $roleModel = new Role();
+        $roleRepository = new Repository($roleModel);
+        $roleName = $roleRepository->all()->where('id','=',$userRoleId)->first()->role_name;
+
+        return $roleName;
+    }
 }

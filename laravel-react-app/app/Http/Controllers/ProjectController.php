@@ -59,10 +59,11 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         $this->model->update($request->all(), $id);
-        return redirect('/edit')->with('success', 'Project up to date.');
+        return redirect('projects/edit')->with('success', 'Project up to date.');
     }
     public function destroy($id)
     {
-        return $this->model->delete($id);
+        $this->model->delete($id);
+        return redirect('projects');
     }
 }

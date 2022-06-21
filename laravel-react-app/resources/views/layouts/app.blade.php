@@ -45,6 +45,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{'/users'}}">Users</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{'/customers'}}">Customers</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -28,12 +28,10 @@ class UserController extends Controller
         return view('users.list', compact('users'));
     }
 
-    public function show(){
-        $users = DB::table('users')
-            ->select('*')
-            ->from('users')
-            ->get();
-        return view('user',['users'=>$users]);
+    public function show($id)
+    {
+        $users = $this->model->show($id);
+        return view('users.show', compact('users'));
     }
 
     public function insert(){
@@ -63,7 +61,12 @@ class UserController extends Controller
             ->where('roles.role_name', $roleName)
             ->get();
     }
+    public function destroy($id)
+    {
+        $this->model->delete($id);
+        return redirect()->route('users')->with('status', 'user deleted');
 
+    }
     public function logout(Request $request) {
         Auth::logout();
         return redirect('/login');

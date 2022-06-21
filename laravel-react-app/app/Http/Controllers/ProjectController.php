@@ -30,7 +30,11 @@ class ProjectController extends Controller
 
     public function insert()
     {
-        return view('projects/add');
+        $customers =  $this->model->with('customers')
+        ->select('customers.*', 'projects.*')
+        ->join('customers', 'projects.customer_id', '=', 'customers.id')->get();
+
+        return view('projects/add', compact('customers'));
     }
 
 

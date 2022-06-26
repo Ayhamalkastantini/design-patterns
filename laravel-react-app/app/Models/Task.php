@@ -24,7 +24,7 @@ class Task extends Model
     /**
      * The project that belong to the role.
      */
-    public function project():BelongsTo
+    public function project(): belongsTo
     {
         return $this->belongsTo(Project::class);
     }
@@ -34,7 +34,7 @@ class Task extends Model
      */
     public function user():BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault();;
     }
 }
 

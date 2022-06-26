@@ -19,7 +19,7 @@ class Customer extends Model
      */
     public function project()
     {
-        return $this->hasOne(Project::class);
+        return $this->hasOne(Project::class,'project_id','id')->withDefault();;
     }
 
     public function user():BelongsTo

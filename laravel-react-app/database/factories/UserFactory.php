@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Role;
+use http\Client\Curl\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -17,10 +18,10 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => 'admin@admin.com',
+            'email' => $this->faker->email(),
             'email_verified_at' => now(),
-            'role_id' => 3,
-            'password' => '$2y$10$otq96R.qT0AAX/Th0Bq1HOfE/20.K98.T8K5ol3okZR3EUaggdIAe',
+            'role_id' => $this->faker->numberBetween(1,3),
+            'password' => '11111111',
             'remember_token' => Str::random(10),
         ];
     }

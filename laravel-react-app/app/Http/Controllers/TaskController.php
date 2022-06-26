@@ -25,17 +25,17 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks = $this->model->with('project')->orderBy('projects.deadline','desc')
-            ->join('projects','tasks.project_id', '=','projects.id')
+        $tasks = $this->model->with('project')->with('user')
             ->get();
-
         return view('tasks.list', compact('tasks'));
     }
     public function insert()
     {
         $customers =  $this->model->with('project')
-            ->select('tasks.*', 'projects.*')
-            ->join('projects', 'tasks.project_id', '=', 'projects.id')->get();
+            ->with('project')
+            ->with('user')
+            ->get();
+        dump($customers);
         return view('tasks/add', compact('customers'));
     }
 
@@ -50,16 +50,16 @@ class TaskController extends Controller
     public function show($id)
     {
         $tasks = $this->model->show($id);
-
-        return view('tasks.show', compact('tasks'));
-
+        if($this->checkRole('Admin')){
+            return view('tasks/show', compact('tasks'));
+        }else{
+            return $this->index();
+        }
     }
     public function edit($id)
     {
-        $data =  $this->model->with('project')
-            ->select('tasks.*', 'projects.*')
-            ->join('projects', 'tasks.project_id', '=', 'projects.id')->get();
-        $tasks = Task::find($id);
+        $data =  $this->model->with('project')->get();
+        $tasks = Task::all($id);
 
         return view('tasks.edit', compact('tasks', 'data'));
     }
@@ -70,6 +70,11 @@ class TaskController extends Controller
     }
     public function destroy($id)
     {
-        return $this->model->delete($id);
+        if($this->checkRole('Admin')){
+             $this->model->delete($id);
+            return redirect('tasks/list');
+        }else{
+            return $this->index();
+        }
     }
 }

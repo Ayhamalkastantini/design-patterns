@@ -20,7 +20,7 @@ class CustomerController extends Controller
     }
 
 
-    public function index(Request $request)
+    public function index()
     {
         $customers = $this->model->all();
 
@@ -29,9 +29,8 @@ class CustomerController extends Controller
     public function insert()
     {
         $customers =  $this->model->with('user')
-            ->select('customers.*', 'users.*')
-            ->join('users', 'customers.user_id', '=', 'users.id')->get();
-
+           ->get();
+            dump($customers);
         return view('customers/add', compact('customers'));
     }
 
@@ -63,7 +62,7 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         $this->model->delete($id);
-        return redirect('customers');
+        return redirect('customers/list');
 
     }
 }

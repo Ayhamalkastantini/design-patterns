@@ -47,16 +47,14 @@ class UserController extends Controller
 
     public function insert(){
 
+
         if($this->checkRole('Admin')){
-            $userRole = $this->model->with('role')
-                ->select('users.*','roles.*')
-                ->join('roles','roles.id','=','users.role_id')
+            $userRole =  $this->model->with('role')
                 ->get();
-            return view('users.add', compact('userRole'));
+            return view('users/add', compact('userRole'));
         }else{
             return redirect('/');
         }
-
     }
 
     public function store(Request $request)

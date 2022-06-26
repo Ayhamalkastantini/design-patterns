@@ -23,10 +23,10 @@
                         <input type="text" id="title" name="description" class="form-control" required="">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Customer name</label>
-                        <select class="customers form-control full-width" id="customers" name="project_id" required="">
+                        <label for="exampleInputEmail1">company name</label>
+                        <select class="customers form-control full-width" id="customers" name="company_name" required="">
                             @foreach($customers as $customer)
-                                <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                <option value="{{$customer->title}}">{{$customer->title}}</option>
                             @endforeach
                         </select>
                     </div>

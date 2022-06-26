@@ -28,12 +28,10 @@ class User extends Authenticatable
     ];
 
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+
     public function role()
     {
-        return $this->belongsTo(Role::class, 'user_id');
+        return $this->belongsTo(Role::class)->withDefault();
     }
 
     public function customer()

@@ -23,7 +23,7 @@
             <td >{{$user->name}}</td>
             <td >{{$user->email}}</td>
             <td >{{$user->password}}</td>
-            <td >{{$user->role}}</td>
+            <td >{{$user->role_id}}</td>
             <td >
                 <a href="{{ route('users.show',[$user->id]) }}" class="btn btn-success w-100 text-light ">Show</a>
                 <a href="{{ route('users.edit',[$user->id]) }}" class='btn btn-warning w-100 mb-2 mt-2 text-light' >Edit</a>

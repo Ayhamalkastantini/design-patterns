@@ -26,14 +26,18 @@
                         <label for="">Address	</label>
                         <input type="text" id="Address" name="address" class="form-control" required="">
                     </div>
-{{--                    <div class="form-group">--}}
-{{--                        <label for="">User name</label>--}}
-{{--                        <select class="customers form-control full-width" id="user_id" name="user_id" required="">--}}
-{{--                            <option value="1">Customer</option>--}}
-{{--                            <option value="2">Developer</option>--}}
-{{--                            <option value="3">Admin</option>--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
+                    <div class="form-group">
+                        <label for="">Password	</label>
+                        <input type="text" id="password" name="password" class="form-control" >
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">User name</label>
+                        <select class="customers form-control full-width" id="customers" name="email" required="">
+                            @foreach($customers as $customer)
+                                <option value="{{$customer->user->email}}">{{$customer->user->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </form>
             </div>

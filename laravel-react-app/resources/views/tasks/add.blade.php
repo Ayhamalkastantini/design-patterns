@@ -18,7 +18,7 @@
                         <label for="exampleInputEmail1">Project name</label>
                         <select class="customers form-control full-width" id="customers" name="project_id" required="">
                             @foreach($customers as $customer)
-                                <option value="{{$customer->id}}">{{$customer->title}}</option>
+                                <option value="{{$customer->project->id}}">{{$customer->project->title}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -26,7 +26,7 @@
                         <label for="exampleInputEmail1">User name</label>
                         <select class="customers form-control full-width" id="customers" name="project_id" required="">
                             @foreach($customers as $customer)
-                                <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                <option value="{{$customer->user->id}}">{{$customer->user->name}}</option>
                             @endforeach
                         </select>
                     </div>

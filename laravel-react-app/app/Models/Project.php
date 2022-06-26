@@ -28,14 +28,14 @@ class Project extends Model
     /**
      * The users that belong to the role.
      */
-    public function Tasks(): BelongsToMany
+    public function Tasks(): hasMany
     {
-        return $this->belongsToMany(Task::class);
+        return $this->hasMany(Task::class);
     }
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class)->withDefault();
     }
 
 }

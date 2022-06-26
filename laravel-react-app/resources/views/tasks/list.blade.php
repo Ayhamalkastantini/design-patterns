@@ -24,7 +24,7 @@
         <tr>
             <td >{{$task->taskName}}</td>
             <td >{{$task->description}}</td>
-            <td >{{$task->company_name}}</td>
+            <td >{{$task->project->title}}</td>
             @if($task->status == 'Done')
                 <td class="text-success text-bold" >{{$task->status}}</td>
             @endif
@@ -35,8 +35,10 @@
                 <td class="text-primary text-bold" >{{$task->status}}</td>
             @endif
             <td >{{$task->deadline}}</td>
-            @if($task->title)
-            <td >{{$task->title}}</td>
+            @if($task->user->name)
+            <td >{{$task->user->name}}</td>
+            @else
+                <td >No customer yet</td>
             @endif
             <td >
                 <a href="{{ route('tasks.show',[$task->id]) }}" class="btn btn-success w-100 text-light ">Show</a>

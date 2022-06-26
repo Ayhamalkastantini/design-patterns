@@ -32,8 +32,8 @@ Route::post('projects', [ProjectController::class, 'store']);
 Route::get('projects/show/{id}', [ProjectController::class, 'show'])->name('projects.show');
 
 Route::get('projects/edit/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
-Route::put('projects/edit/{id}', [ProjectController::class, 'update'])->name('update');
-Route::delete('projects/show/{id}', [ProjectController::class, 'destroy'])->name('destroy');
+Route::put('projects/update/{id}', [ProjectController::class, 'update'])->name('update');
+Route::delete('projects/destroy/{id}', [ProjectController::class, 'destroy'])->name('destroy');
 
 Auth::routes();
 
@@ -44,9 +44,8 @@ Route::post('tasks', [TaskController::class, 'store']);
 Route::get('tasks/show/{id}', [TaskController::class, 'show'])->name('tasks.show');
 
 Route::get('tasks/edit/{id}', [TaskController::class, 'edit'])->name('tasks.edit');
-Route::put('tasks/edit/{id}', [TaskController::class, 'update'])->name('update');
-Route::delete('tasks/show/{id}', [TaskController::class, 'destroy'])->name('destroy');
-
+Route::put('tasks/update/{id}', [TaskController::class, 'update'])->name('update');
+Route::delete('tasks/destroy/{id}', [TaskController::class, 'destroy'])->name('destroy');
 
 // User routs
 Route::get('/users', [UserController::class, 'index'])->name('users');

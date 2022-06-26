@@ -25,14 +25,12 @@ class ProjectController extends Controller
     {
         $ProjectList = $this->model->with('customer')->orderBy('deadline', 'desc')->get();
         $roleName = $this->getRole();
-
         return view('projects.list', compact('ProjectList', 'roleName'));
-
     }
 
     public function insert()
     {
-        $customers =  $this->model->with('customers')
+        $customers =  $this->model->with('customer')
         ->select('customers.*', 'projects.*')
         ->join('customers', 'projects.customer_id', '=', 'customers.id')->get();
 
@@ -58,7 +56,7 @@ class ProjectController extends Controller
     }
     public function edit($id)
     {
-        $projects = Project::find($id);
+        $projects = Project::all($id);
 
         if($this->checkRole('Admin')){
             return view('projects.edit', compact('projects'));
@@ -76,7 +74,7 @@ class ProjectController extends Controller
     {
         if($this->checkRole('Admin')){
              $this->model->delete($id);
-             return redirect('projects');
+             return redirect('projects/list');
         }else{
             return $this->index();
         }
